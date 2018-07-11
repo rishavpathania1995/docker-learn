@@ -11,7 +11,7 @@ RUN apk add --no-cache-dir py2-pip
 WORKDIR /usr/share/app
 
 RUN pip -install --upgrade pip \
-&& pip -install -r requirements.txt
+&& pip -install  --no-cache-dir -r requirements.txt
 
 # upgrading pip to latest version.
 
