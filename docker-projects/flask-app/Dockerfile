@@ -15,7 +15,7 @@ RUN pip -install --upgrade pip \
 
 # upgrading pip to latest version.
 
-COPY . .
+COPY . . 
 
 # coping everything in the current directory to alpine image .
 
