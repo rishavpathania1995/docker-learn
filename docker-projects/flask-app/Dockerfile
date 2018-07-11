@@ -1,0 +1,24 @@
+# creating simple flask app over alpine image .
+
+FROM alpine:latest
+
+# selecting alpine latest image .
+
+RUN apk add --no-cache-dir py2-pip
+
+# installing pip for python 2.
+
+WORKDIR /usr/share/app
+
+RUN pip -install --upgrade pip \
+&& pip -install -r requirements.txt
+
+# upgrading pip to latest version.
+
+COPY . .
+
+# coping everything in the current directory to alpine image .
+
+EXPOSE 5000
+
+CMD ["python","app.py"]
