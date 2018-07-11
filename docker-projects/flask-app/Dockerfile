@@ -20,5 +20,6 @@ RUN pip -install --upgrade pip && pip -install  --no-cache-dir -r requirements.t
 # coping everything in the current directory to alpine image .
 
 EXPOSE 5000
+#expose port 5000
 
 CMD ["python","app.py"]
