@@ -13,7 +13,7 @@ WORKDIR /usr/share/app
 COPY . .
 # coping everything in the current directory to alpine image .
 
-RUN pip -install --upgrade pip && pip -install  --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip -install  --no-cache-dir -r requirements.txt
 
 # upgrading pip to latest version.
 
