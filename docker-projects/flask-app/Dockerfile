@@ -9,6 +9,7 @@ RUN apk add --no-cache-dir py2-pip
 # installing pip for python 2.
 
 WORKDIR /usr/share/app
+COPY . .
 
 RUN pip -install --upgrade pip \
 && pip -install  --no-cache-dir -r requirements.txt
