@@ -1,0 +1,39 @@
+# CREATING docker compose file for drupal and using posgres as database
+# added volume support 
+
+"version": 2
+
+services:  
+  drupal-server:
+    image: drupal:latest
+    volume:
+      - /var/www/html/modules:/var/www/html/modules \
+      - /var/www/html/profiles:/var/www/html/profiles \
+      - /var/www/html/sites:/var/www/html/sites \
+      - /var/www/html/themes:/var/www/html/themes \
+       
+    environment:
+      Database type : Postgres
+      Database user : test
+      Database password: test
+      Database host : postgres
+      
+    
+    port:
+      - 8080:80
+
+    depends_on:
+      - drupal-server
+    
+    restart : always
+
+  postgres:
+    image: postgres:latest
+ 
+    environment: 
+      POSTGRES_DB : test
+      POSTGRES_USER : test
+      POSTGRES_PASSWORD : test
+
+    restart : always
+    
