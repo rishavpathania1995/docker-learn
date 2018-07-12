@@ -19,7 +19,7 @@ services:
       Database host : postgres
       
     
-    port:
+    ports:
       - 8080:80
 
     depends_on:
