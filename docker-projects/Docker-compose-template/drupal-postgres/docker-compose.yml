@@ -6,7 +6,7 @@ version : '2'
 services:  
   drupal-server:
     image: drupal:latest
-    volume:
+    volumes:
       - /var/www/html/modules:/var/www/html/modules \
       - /var/www/html/profiles:/var/www/html/profiles \
       - /var/www/html/sites:/var/www/html/sites \
