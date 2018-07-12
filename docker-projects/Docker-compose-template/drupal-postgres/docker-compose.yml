@@ -23,7 +23,7 @@ services:
       - 8080:80
 
     depends_on:
-      - drupal-server
+      - postgres
     
     restart : always
 
