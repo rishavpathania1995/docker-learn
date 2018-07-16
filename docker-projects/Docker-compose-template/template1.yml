@@ -3,6 +3,10 @@ version: '3.1'  # if no version is specificed then v1 is assumed. Recommend v2 m
 services:  # containers. same as docker run
   servicename: # a friendly name. this is also DNS name inside network
     image: # Optional if you use build:
+    build :
+      context :
+      dockerfile : # neter the docker file
+
     command: # Optional, replace the default CMD specified by the image
     ports:
       - 8080:80
@@ -10,6 +14,7 @@ services:  # containers. same as docker run
     volumes: # Optional, same as -v in docker run
       - /var:/var
     depends_on: # Optional,help to add dependency to other containers.
+    restart: always
   servicename2:
 
 volumes: # Optional, same as docker volume create
