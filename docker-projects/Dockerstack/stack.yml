@@ -12,7 +12,7 @@ services:
       - frontend
     deploy:
       replicas: 1
-      placements:
+      placement:
         constraints:
           - node.role == manager
       resources:
