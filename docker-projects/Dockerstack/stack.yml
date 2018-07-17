@@ -9,8 +9,6 @@
     
     redis:
       image : redis:latest
-      ports :
-        - "6379"
 
       networks:
         - frontend
@@ -148,7 +146,7 @@
   networks:
     frontend:
       driver: overlay
-    back end:
+    backend:
       driver: overlay
 
   volumes:
