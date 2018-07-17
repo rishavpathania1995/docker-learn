@@ -1,138 +1,76 @@
-# Compose file for Swarm
-# Stack is part of version 3
-# https://docs.docker.com/compose/compose-file/#restart_policy
-# docker stack deploy -c stack.yml voteapp
+version: "3"
+services:
 
-  version : "3"
-
-  services:
-    
-    redis:
-      image : redis:latest
-
-      networks:
-        - frontend
-
-      deploy:
-        replicas: 1
-
-        update_config:
-          parallelism: 2
-          delay: 10s
-          failure_action: rollback
-
-        resources:
-          limits:
-            cpus: '0.50'
-            memory: 50M
-
-          reservations:
-            cpus: '0.25'
-            memory: 20M
-
-
-        restart_policy:
-          condition: on-failure
-          delays : 5s
-          max_attempts : 10
-          window: 120s
-
-
-
-    db:
-      image : postgres:latest
-      
-      networks:
-        - backend
-      volumes:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379"
+    networks:
+      - frontend
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  db:
+    image: postgres:9.4
+    volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+  vote:
+    image: dockersamples/examplevotingapp_vote:before
+    ports:
+      - 5000:80
+    networks:
+      - frontend
+    depends_on:
+      - redis
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+  result:
+    image: dockersamples/examplevotingapp_result:before
+    ports:
+      - 5001:80
+    networks:
+      - backend
+    depends_on:
+      - db
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
 
-      deploy:
-        replicas: 1
-        restart_policy:
-          condition: on-failure
-        
-        placements:
-          constraints: [node.role == manager]
+  worker:
+    image: dockersamples/examplevotingapp_worker
+    networks:
+      - frontend
+      - backend
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=VOTING]
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
 
-    vote:
-      image: dockersamples/examplevotingapp_vote:before
-
-      networks:
-        - frontend
-      
-      ports:
-        - "5000:80" 
-      depends_on:
-        - redis
-
-      deploy:
-        replicas : 2
-        
-        update_config:
-          parallelism: 2
-          delay: 120s
-          failure_action: rollback
-
-        placements:
-          constraints: [node.role == manager]  
-
-        restart_policy:
-          condition: on-failure
-          delays: 5s
-
-
-
-    result:
-      image: dockersamples/examplevotingapp_result:before
-
-      networks:
-        - backend
-
-      ports:
-        - "5001:80"
-
-      depends_on:
-        - db
-
-      deploy:
-        replicas: 1
-        update_config:
-          parallelism: 2
-          delays: 120s
-          failure_action: rollback 
-        
-        placements:
-          constraints: [node.role == manager]
-
-        restart_policy:
-          condition : on-failure
-          delays: 5s    
-
-
-
-    worker:
-      image : dockersamples/examplevotingapp_worker
-
-      networks:
-        - frontend
-        - backend
-      deploy:
-        replicas: 2
-        labels: [APP=VOTING]  
-
-        update_config :
-          parallelism: 2
-          delays: 120s 
-          failed_result: rollback
-
-        placements:
-          constraints: [node.role == manager] 
-
-        restart_policy:
-          condition: on-failure
-
-    visualizer:
+  visualizer:
     image: dockersamples/visualizer
     ports:
       - "8080:8080"
@@ -141,14 +79,11 @@
       - "/var/run/docker.sock:/var/run/docker.sock"
     deploy:
       placement:
-        constraints: [node.role == manager]   
-        
-  networks:
-    frontend:
-      driver: overlay
-    backend:
-      driver: overlay
+        constraints: [node.role == manager]
 
-  volumes:
-    db-data:
-      driver: local  
+networks:
+  frontend:
+  backend:
+
+volumes:
+  db-data:
