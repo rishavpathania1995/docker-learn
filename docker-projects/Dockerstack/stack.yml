@@ -1,8 +1,9 @@
 # Compose file for Swarm
 # Stack is part of version 3
 # https://docs.docker.com/compose/compose-file/#restart_policy
+# docker stack deploy -c stack.yml voteapp
 
-version : "3"
+  version : "3"
 
   services:
     
