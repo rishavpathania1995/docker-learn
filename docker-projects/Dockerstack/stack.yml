@@ -98,11 +98,9 @@ services:
 
 networks:
   frontend:
-    driver:
-      - overlay
+    driver: overlay
   backend:
-    driver:
-      - overlay 
+    driver: overlay
 
 volumes:
   db-data:
