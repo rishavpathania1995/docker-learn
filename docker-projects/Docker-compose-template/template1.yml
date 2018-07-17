@@ -4,7 +4,7 @@ services:  # containers. same as docker run
   servicename: # a friendly name. this is also DNS name inside network
     image: # Optional if you use build:
     build :
-      context :
+      context : .
       dockerfile : # neter the docker file
 
     command: # Optional, replace the default CMD specified by the image
