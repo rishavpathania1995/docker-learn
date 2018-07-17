@@ -95,6 +95,7 @@
         - "5001:80"
 
       depends_on:
+        - db
 
       deploy:
         replicas: 1
