@@ -1,5 +1,6 @@
 # docker stack deploy -c stack.yml voteapp
 # docker stack rm voteapp
+# https://docs.docker.com/compose/compose-file/#mode
 
 version: "3"
 services:
@@ -38,7 +39,7 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-        
+
   vote:
     image: dockersamples/examplevotingapp_vote:before
     ports:
@@ -48,7 +49,7 @@ services:
     depends_on:
       - redis
     deploy:
-      replicas: 2
+      replicas: 10
       update_config:
         parallelism: 2
       restart_policy:
@@ -62,7 +63,7 @@ services:
     depends_on:
       - db
     deploy:
-      replicas: 1
+      replicas: 1000
       update_config:
         parallelism: 2
         delay: 10s
