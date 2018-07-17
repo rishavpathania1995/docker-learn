@@ -104,5 +104,4 @@ networks:
 
 volumes:
   db-data:
-    driver:
-      - overlay
+    driver: local
