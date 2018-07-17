@@ -119,7 +119,6 @@
         - frontend
         - backend
       deploy:
-        mode: replicated
           replicas: 2
         labels: [APP=VOTING]  
 
