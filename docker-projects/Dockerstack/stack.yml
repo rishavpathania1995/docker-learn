@@ -119,7 +119,7 @@
         - frontend
         - backend
       deploy:
-          replicas: 2
+        replicas: 2
         labels: [APP=VOTING]  
 
         update_config :
