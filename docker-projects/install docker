@@ -1,0 +1,11 @@
+Install docker-CE and docker compose.
+
+For docker CE 
+https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+For docker Compose
+https://github.com/docker/compose/releases
+
+
+Good Reference 
+https://medium.com/@praaveen/part-2-docker-ce-and-docker-compose-installation-with-ubuntu-ef7b16bd3531
