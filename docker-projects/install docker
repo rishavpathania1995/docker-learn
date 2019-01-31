@@ -10,8 +10,6 @@ https://github.com/docker/compose/releases
 Good Reference 
 https://medium.com/@praaveen/part-2-docker-ce-and-docker-compose-installation-with-ubuntu-ef7b16bd3531
 
-docker run -td -p 8086:8086 -v /var/lib/influxdb:/var/lib/influxdb -e INFLUXDB_DB=pfsense -e INFLUXDB_ADMIN_ENABLED=true -e -e INFLUXDB_ADMIN_USER=admin -e -e INFLUXDB_ADMIN_PASSWORD=admin influxdb
-
 For docker permission issue.
 
 $sudo usermod -aG docker $USER
