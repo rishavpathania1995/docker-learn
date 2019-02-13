@@ -1,2 +1,5 @@
 #Influx db 
 docker run -td -p 8086:8086 -v /var/lib/influxdb:/var/lib/influxdb -e INFLUXDB_DB=pfsense -e INFLUXDB_ADMIN_ENABLED=true -e -e INFLUXDB_ADMIN_USER=admin -e -e INFLUXDB_ADMIN_PASSWORD=admin influxdb
+
+
+https://github.com/BretFisher/udemy-docker-mastery   ##very good links
