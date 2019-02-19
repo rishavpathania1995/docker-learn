@@ -3,3 +3,4 @@ docker run -td -p 8086:8086 -v /var/lib/influxdb:/var/lib/influxdb -e INFLUXDB_D
 
 
 https://github.com/BretFisher/udemy-docker-mastery   ##very good links
+https://towardsdatascience.com/learn-enough-docker-to-be-useful-b0b44222eef5   ## docker file good example
